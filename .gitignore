@@ -16,6 +16,7 @@
 
 # IDE
 .idea
+.vscode
 
 # Moxie Binaries
 builds/moxie_osx
