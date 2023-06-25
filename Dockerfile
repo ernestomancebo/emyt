@@ -13,8 +13,9 @@ RUN go mod download
 COPY . ./
 
 # Build package
-RUN cd cmd/ && CGO_ENABLED=1 GOOS=linux go build -o ../docker-emyt
+RUN cd cmd/ && CGO_ENABLED=1 GOOS=linux go build --ldflags "-s -w" -o ../docker-emyt
 
-EXPOSE 80
+EXPOSE 9999
+EXPOSE 9000
 
 CMD [ "/app/docker-emyt" ]
