@@ -8,10 +8,12 @@ services:
     type: static
     ingress_url: "app1.localhost:9000"
     egress_url: "/var/www/html1"
+    x_frame_options: "SAMEORIGIN"
   - name: "Assets 2"
     type: static
     ingress_url: "app2.localhost:9000"
     egress_url: "/var/www/html2"
+    x_frame_options: "SAMEORIGIN"
   - name: "Redirect 3 to 1"
     type: redirect
     ingress_url: "app3.localhost:9000"

@@ -3,6 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"net/url"
+	"os"
+	"os/signal"
+	"time"
+
 	"github.com/emyt-io/emyt/config"
 	"github.com/emyt-io/emyt/config/models"
 	"github.com/emyt-io/emyt/dbprovider"
@@ -11,11 +17,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"net/http"
-	"net/url"
-	"os"
-	"os/signal"
-	"time"
 )
 
 const AppYamlFilename = "app.yaml"
@@ -72,6 +73,12 @@ func main() {
 				Browse: true,
 				HTML5:  true,
 			}))
+
+			if service.XFrameOptions != "" {
+				tenant.Use(middleware.SecureWithConfig(middleware.SecureConfig{
+					XFrameOptions: service.XFrameOptions,
+				}))
+			}
 			// Add to Hosts
 			hosts[service.IngressUrl] = &models.Host{Echo: tenant}
 		} else if service.Type == "redirect" {
