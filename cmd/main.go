@@ -79,7 +79,6 @@ func main() {
 				service.XFrameOptions = "SAMEORIGIN"
 			}
 
-			// Default XFrameOptions and HSTSMaxAge from config to blank if empty
 			tenant.Use(middleware.SecureWithConfig(middleware.SecureConfig{
 				XFrameOptions: service.XFrameOptions,
 				HSTSMaxAge:    service.HSTSMaxAge, // Can be zero, thus we not defaulting it
