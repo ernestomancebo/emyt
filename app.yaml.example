@@ -14,6 +14,7 @@ services:
     ingress_url: "app2.localhost:9000"
     egress_url: "/var/www/html2"
     x_frame_options: "SAMEORIGIN"
+    hsts_max_age: "31536000"
   - name: "Redirect 3 to 1"
     type: redirect
     ingress_url: "app3.localhost:9000"

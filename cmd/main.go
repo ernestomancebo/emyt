@@ -74,11 +74,16 @@ func main() {
 				HTML5:  true,
 			}))
 
-			if service.XFrameOptions != "" {
-				tenant.Use(middleware.SecureWithConfig(middleware.SecureConfig{
-					XFrameOptions: service.XFrameOptions,
-				}))
+			if service.XFrameOptions == "" {
+				// Expected default value is "SAMEORIGIN" in SecureConfig.
+				service.XFrameOptions = "SAMEORIGIN"
 			}
+
+			// Default XFrameOptions and HSTSMaxAge from config to blank if empty
+			tenant.Use(middleware.SecureWithConfig(middleware.SecureConfig{
+				XFrameOptions: service.XFrameOptions,
+				HSTSMaxAge:    service.HSTSMaxAge, // Can be zero, thus we not defaulting it
+			}))
 			// Add to Hosts
 			hosts[service.IngressUrl] = &models.Host{Echo: tenant}
 		} else if service.Type == "redirect" {

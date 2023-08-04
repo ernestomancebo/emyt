@@ -14,4 +14,5 @@ type Service struct {
 	IngressUrl    string `yaml:"ingress_url"`
 	EgressUrl     string `yaml:"egress_url"`
 	XFrameOptions string `yaml:"x_frame_options"`
+	HSTSMaxAge    int    `yaml:"hsts_max_age"`
 }
